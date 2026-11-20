@@ -10,7 +10,7 @@
 // Outside the grader's container, MAKEFUN_BOT_DIR and MAKEFUN_OUTPUT_DIR stand in for /bot and /output:
 //   mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { copyFileSync, mkdirSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const BOT_DIR = process.env.MAKEFUN_BOT_DIR ?? '/bot';
@@ -23,3 +23,16 @@ try {
   console.error(`VIDEO.json could not be copied from ${BOT_DIR}: ${(err as Error).message}`);
   process.exit(1);
 }
+
+// After copying, confirm the address names a public YouTube Shorts video, so a
+// placeholder or mistyped address fails loudly here instead of entering.
+const copied = readFileSync(join(OUTPUT_DIR, 'VIDEO.json'), 'utf8');
+const video = JSON.parse(copied) as { url?: unknown };
+if (
+  typeof video.url !== 'string' ||
+  !/^https:\/\/(www\.)?(youtube\.com\/shorts\/|youtu\.be\/)/.test(video.url)
+) {
+  console.error('VIDEO.json must name a public YouTube Shorts address.');
+  process.exit(1);
+}
+console.log(`clip video: ${video.url}`);
