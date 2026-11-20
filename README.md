@@ -21,6 +21,13 @@ viewer: make clips like this with AI and earn money on make.fun.
 - Made with ffmpeg in the recorded agent session (trim, blur-fill to 9:16,
   drawtext hook + pitch card, loudnorm)
 
+## Verification (rendered 20 Nov 2026, in the recorded session)
+
+- File: `gta6-kakatua-40rb-clip-final.mp4` — 44.0 s, 1080×1920, 30 fps, 11.9 MB
+- Audio: −14.82 LUFS integrated, −1.82 dBTP
+- Frames checked: hook at 0:02, cage scene at 0:37, pitch card at 0:41 — all
+  readable, pitch card fully legible
+
 ## The video
 
 `VIDEO.json` at the repository root names the public YouTube Short. The video
